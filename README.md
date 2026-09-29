@@ -124,11 +124,10 @@ modiman/
 
 ## 🌐 Deployment
 
-The project is deployed on **Vercel** and auto-deploys on every push to `main`.
+The project can be deployed on **GitHub Pages** or **Vercel** with auto-deploys on every push to `main`.
 
-👉 **[https://modiman-xi.vercel.app/](https://modiman-xi.vercel.app/)**
-
-You can also deploy to [Netlify](https://netlify.com) or [GitHub Pages](https://pages.github.com/) with zero config.
+- 🚀 **GitHub Pages**: [https://vinay-711.github.io/modiman/](https://vinay-711.github.io/modiman/)
+- ⚡ **Vercel**: [https://modiman-xi.vercel.app/](https://modiman-xi.vercel.app/)
 
 ---
 

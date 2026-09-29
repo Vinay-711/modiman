@@ -1,10 +1,10 @@
-import { createBrowserRouter } from "react-router";
+import { createHashRouter } from "react-router";
 import { Layout } from "./Layout";
 import { StartPage } from "./pages/StartPage";
 import { GamePage } from "./pages/GamePage";
 import { WinLossPage } from "./pages/WinLossPage";
 
-export const router = createBrowserRouter([
+export const router = createHashRouter([
   {
     path: "/",
     Component: Layout,

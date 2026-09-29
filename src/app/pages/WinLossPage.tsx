@@ -52,8 +52,8 @@ export const WinLossPage: React.FC = () => {
       if (screenshotUrl) URL.revokeObjectURL(screenshotUrl);
       const url = URL.createObjectURL(blob);
       setScreenshotUrl(url);
-      const file = new File([blob], "modiman_score.png", { type: "image/png" });
-      const shareText = `I scored ${score} in MODIMAN! 🏆 Can you beat me?\nPlay here: https://modiman-xi.vercel.app/`;
+      const currentPlayUrl = typeof window !== 'undefined' ? window.location.href.split('#')[0] : "https://github.com/Vinay-711/modiman";
+      const shareText = `I scored ${score} in MODIMAN! 🏆 Can you beat me?\nPlay here: ${currentPlayUrl}`;
       if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
         try {
           await navigator.share({ files: [file], title: "MODIMAN Score", text: shareText });
