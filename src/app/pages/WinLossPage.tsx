@@ -232,7 +232,7 @@ export const WinLossPage: React.FC = () => {
           </div>
 
           <p className="text-[9px] text-white/20 tracking-widest">
-            modiman-xi.vercel.app &nbsp;·&nbsp; code.itzpa1
+            modiman-xi.vercel.app &nbsp;·&nbsp; Vinay-711
           </p>
         </div>
       </div>
