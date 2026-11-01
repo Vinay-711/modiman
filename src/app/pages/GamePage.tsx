@@ -20,21 +20,7 @@ import majaAaya from "./../../assets/audio/maja-aaya.mp3";
 import laureNa from "./../../assets/audio/laure-na-bhujjam-x-modi.mp3";
 import khatam from "./../../assets/audio/khatam.mp3";
 
-const INITIAL_MAZE = [
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
-  [1, 3, 1, 1, 0, 1, 2, 1, 0, 1, 1, 3, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 1, 1, 0, 1, 2, 1, 0, 1, 1, 0, 1],
-  [1, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 1],
-  [1, 1, 1, 1, 0, 1, 4, 1, 0, 1, 1, 1, 1],
-  [1, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 1],
-  [1, 0, 1, 1, 0, 1, 2, 1, 0, 1, 1, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 3, 1, 1, 0, 1, 0, 1, 0, 1, 1, 3, 1],
-  [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-];
+import { createInitialMaze } from "../game/maze.js";
 
 const GRID_SIZE = { cols: 13, rows: 13 };
 
@@ -73,7 +59,7 @@ export const GamePage: React.FC = () => {
 
   const [score, setScore] = useState(0);
   const [lives, setLives] = useState(3);
-  const [maze, setMaze] = useState(INITIAL_MAZE);
+  const [maze, setMaze] = useState(createInitialMaze);
   const [playerUI, setPlayerUI] = useState({ x: 6, y: 10 });
   const [ghostsUI, setGhostsUI] = useState([
     { x: 5, y: 5, dir: 'LEFT' },
@@ -87,12 +73,25 @@ export const GamePage: React.FC = () => {
     { x: 6, y: 5, dir: 'UP' },
     { x: 7, y: 5, dir: 'RIGHT' },
   ]);
-  const mazeRef = useRef(INITIAL_MAZE);
+  const mazeRef = useRef(maze);
   const scoreRef = useRef(0);
   const livesRef = useRef(3);
   const isMutedRef = useRef(isMuted);
   const bgMusicRef = useRef<HTMLAudioElement | null>(null);
   const lastEffectRef = useRef<HTMLAudioElement | null>(null);
+
+  // Read-only development hook for repeatable gameplay checks.
+  useEffect(() => {
+    if (!import.meta.env.DEV) return;
+    const target = window as Window & { render_game_to_text?: () => string };
+    target.render_game_to_text = () => JSON.stringify({
+      mode: 'playing', coordinates: 'grid origin top-left; x right, y down',
+      player: playerRef.current, score: scoreRef.current, lives: livesRef.current,
+      remaining: mazeRef.current.flat().filter(cell => cell === 0 || cell === 3).length,
+      spawnCell: mazeRef.current[10][6],
+    });
+    return () => { delete target.render_game_to_text; };
+  }, []);
 
   // Fullscreen helpers (with webkit prefix for Samsung/old browsers)
   const requestFullscreen = useCallback(() => {

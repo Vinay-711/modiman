@@ -1,0 +1,3 @@
+Original prompt: Improve the next batch of GitHub repositories with substantive fixes, tests, and useful PRs.
+
+Replay regression: module-level maze rows were mutated during play. Isolated maze factory now returns independent rows per game. Node tests cover replay, independent sessions, and maze layout. Local Chromium check passed: collect spawn dot, navigate to results, click Replay in the same JS session, verify score=0/lives=3/spawn restored, then move through an open corridor. Direct-link autoplay is blocked by browser policy; normal Start-button flow checked separately. Existing production-build chunk-size and Browserslist warnings remain. No other gameplay changes intended.
