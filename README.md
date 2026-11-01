@@ -157,4 +157,12 @@ npm run build
 npm run preview
 ```
 
-The manifest has no test or lint script; a successful build alone does not establish gameplay correctness. Manually check keyboard/touch controls, restart, audio after a user gesture, and phone/desktop layouts. Keep relative asset paths working when hosted below a repository subpath. Review licenses for character, image and audio assets before redistribution; this is a fan-made entertainment project, not an endorsement.
+The manifest includes a replay regression test script but no lint script; a successful build alone does not establish gameplay correctness. Manually check keyboard/touch controls, restart, audio after a user gesture, and phone/desktop layouts. Keep relative asset paths working when hosted below a repository subpath. Review licenses for character, image and audio assets before redistribution; this is a fan-made entertainment project, not an endorsement.
+
+### Replay regression tests
+
+Run `npm ci`, `npm test`, and `npm run build`. Each game receives independent
+maze rows, so replay restores consumed dots and power pellets. Node tests cover
+replay reset, independent sessions, and maze layout. The development server exposes
+a read-only `window.render_game_to_text()` snapshot for browser checks; it is absent
+from production builds. GitHub Actions runs the tests and production build.
