@@ -145,3 +145,16 @@ The project can be deployed on **GitHub Pages** or **Vercel** with auto-deploys 
 [![GitHub Stars](https://img.shields.io/github/stars/Vinay-711/modiman?style=social)](https://github.com/Vinay-711/modiman)
 
 </div>
+
+## Reproduce the frontend build
+
+From the repository root, use a Node.js version compatible with [package.json](package.json):
+
+```sh
+npm ci
+npm run dev
+npm run build
+npm run preview
+```
+
+The manifest has no test or lint script; a successful build alone does not establish gameplay correctness. Manually check keyboard/touch controls, restart, audio after a user gesture, and phone/desktop layouts. Keep relative asset paths working when hosted below a repository subpath. Review licenses for character, image and audio assets before redistribution; this is a fan-made entertainment project, not an endorsement.
